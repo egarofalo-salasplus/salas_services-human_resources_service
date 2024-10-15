@@ -51,7 +51,15 @@ pip install -r requirements.txt
 ```
 
 ## Configuración de Base de Datos
-Este proyecto está configurado para utilizar SQL Server como base de datos principal. En el archivo `settings.py` puedes configurar las credenciales y la conexión a la base de datos.
+Este proyecto está configurado para utilizar SQL Server como base de datos principal. Los parámetros de conexión a la base de datos se gestionan mediante variables de entorno para mayor seguridad y flexibilidad. Puedes configurar las siguientes variables de entorno:
+
+- `DB_NAME`: Nombre de la base de datos.
+- `DB_USER`: Usuario de la base de datos.
+- `DB_PASSWORD`: Contraseña del usuario.
+- `DB_HOST`: Dirección del host de la base de datos.
+- `DB_PORT`: Puerto de la base de datos (opcional).
+
+Asegúrate de que estas variables estén configuradas correctamente antes de ejecutar la aplicación.
 
 ## Uso
 Para comenzar a usar la aplicación, primero realiza las migraciones necesarias:
@@ -83,3 +91,5 @@ Si deseas contribuir al proyecto, puedes clonar el repositorio y crear tus propi
 ## Contacto
 Para cualquier duda o consulta, puedes contactar al desarrollador principal o revisar la documentación del proyecto.
 
+## Licencia
+Este proyecto está licenciado bajo la Licencia MIT. Puedes ver más detalles en el archivo `LICENSE` adjunto.
