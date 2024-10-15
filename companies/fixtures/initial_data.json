@@ -1,0 +1,66 @@
+[
+    {
+        "model": "companies.Address",
+        "pk": 1,
+        "fields": {
+            "country": "España",
+            "region": "Catalunya",
+            "city": "Sabadell",
+            "postal_code": "8203",
+            "street": "Carrer de la Reina Elionor",
+            "complement": "178"
+        }
+    },
+    {
+       "model": "companies.Company",
+       "pk": 1,
+       "fields": {
+            "name": "Salas PlusHabit",
+            "CIF": "0",
+            "address": "1",
+            "phone": "5555555",
+            "email": "comercial@salas.plus",
+            "creation_date": "1990-01-01",
+            "company_status": "Activa"
+       } 
+    },
+    {
+        "model": "companies.Company",
+        "pk": 2,
+        "fields": {
+             "name": "Salas ConstruHabit",
+             "CIF": "0",
+             "address": "1",
+             "phone": "5555555",
+             "email": "comercial@salas.plus",
+             "creation_date": "1990-01-01",
+             "company_status": "Activa"
+        } 
+    },
+    {
+        "model": "companies.Company",
+        "pk": 3,
+        "fields": {
+             "name": "Fundación Nou Lloc",
+             "CIF": "0",
+             "address": "1",
+             "phone": "5555555",
+             "email": "comercial@salas.plus",
+             "creation_date": "1990-01-01",
+             "company_status": "Activa"
+        } 
+    },
+    {
+        "model": "companies.Company",
+        "pk": 4,
+        "fields": {
+             "name": "Salas Green Power",
+             "CIF": "0",
+             "address": "1",
+             "phone": "5555555",
+             "email": "comercial@salas.plus",
+             "creation_date": "1990-01-01",
+             "company_status": "Activa"
+        } 
+    }
+]
