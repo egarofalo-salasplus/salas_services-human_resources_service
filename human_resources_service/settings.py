@@ -60,7 +60,7 @@ ROOT_URLCONF = 'human_resources_service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,7 +86,7 @@ DATABASES = {
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
-        'PORT': config("DB_PORT"),
+        'PORT': "",
         'OPTIONS': {
             
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -94,11 +94,6 @@ DATABASES = {
         },
     }
 }
-
-
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
