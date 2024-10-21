@@ -31,6 +31,12 @@ jobs:
         run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Run collectstatic for Django
+        env:
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_SETTINGS_MODULE: human_resources_service.settings
+        run: |
+          python manage.py collectstatic --noinput
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
