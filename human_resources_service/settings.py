@@ -29,10 +29,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'human-resources-service-fthdbzhyfwfwfhda.westeurope-01.azurewebsites.net',
+    '127.0.0.1',
     ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://human-resources-service-fthdbzhyfwfwfhda.westeurope-01.azurewebsites.net',
+
 ]
 
 STATIC_URL = '/static/'
