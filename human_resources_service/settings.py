@@ -28,13 +28,13 @@ SECRET_KEY = 'django-insecure-d_6cvw4z)jzcemqe_q*!b%v&l8+r7z5fi$au#3pgg)+0%$2-n9
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://human-resources-ms.azurewebsites.net',
+    'human-resources-ms.azurewebsites.net',
     '127.0.0.1',
     'localhost',
     ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://https://human-resources-ms.azurewebsites.net',
+    'https://human-resources-ms.azurewebsites.net',
 
 ]
 
