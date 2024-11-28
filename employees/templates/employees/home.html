@@ -1,62 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Recursos Humanos - Salas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f8fa; /* Fondo claro que armoniza con el logo */
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #2a5d84; /* Color extraído del logo */
-            color: #ffffff;
-            padding: 20px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-        .header img {
-            height: 50px;
-            margin-right: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            text-align: center;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .welcome {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .admin-link {
-            background-color: #2a5d84; /* Color acorde al logo */
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-        .admin-link:hover {
-            background-color: #214966; /* Color más oscuro para hover */
-        }
-    </style>
+    <title>Salas Personas App</title>
+    <link rel="stylesheet" href="{% static 'employees/css/styles.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="header">
-        <img src="https://pbs.twimg.com/profile_images/1402978399132344322/6uLYc7O__400x400.jpg" alt="Logo Salas">
-        <h1>Gestión de Recursos Humanos - Salas</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="logo-container">
+            <img src="{% static 'employees/images/logo_salas.png' %}"
+            alt="Logo de Salas Plus">
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Inicio <span class="sr-only">(actual)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Bienvenido a Salas</h1>
+                <p>
+                    En Salas Plus nos dedicamos a la gestión y desarrollo inmobiliario en Cataluña, 
+                    ofreciendo soluciones innovadoras y personalizadas para la administración de recursos humanos y mucho más. 
+                    Nuestra plataforma ha sido diseñada para facilitar la gestión de empleados y mejorar la productividad en todos los niveles.
+                </p>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
     </div>
-    <div class="container">
-        <p class="welcome">Bienvenido al sistema de gestión de recursos humanos de Salas</p>
-        <a href="/admin/" class="admin-link">Iniciar sesión en el panel de administración</a>
-    </div>
+    
+    <!-- Agrega más contenido aquí -->
+
+    <footer>
+        <p>&copy; 2023 Salas Plus. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

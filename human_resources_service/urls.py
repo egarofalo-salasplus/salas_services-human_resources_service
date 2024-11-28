@@ -20,6 +20,8 @@ from employees import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('employees/', include('employees.urls')),
+    path('imputations/', include('imputations.urls')),
     path("", views.home, name="home"),
 ]

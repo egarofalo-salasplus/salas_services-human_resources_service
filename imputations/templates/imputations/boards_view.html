@@ -1,0 +1,62 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boards View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>IMPUTACIÓN</h1>
+        <h2 class="mt-4">Selecciona un Tablero</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="board">Tablero de monday.com</label>
+                {{ form.board|add_class:"form-control" }}  <!-- Asegúrate de reemplazar "field_name" con el nombre real del campo -->
+            </div>
+            <div class="form-group">
+                <label for="id_field_email">Email a imputar</label>
+                {{ form.email|add_class:"form-control" }}  <!-- Reemplaza "email" con el nombre real del campo -->
+            </div>
+            <!-- Agrega más campos según sea necesario -->
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+        {% if items %}
+            <h2 class="mt-4">Detalles de los Ítems</h2>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Horas Imputadas</th>
+                        <th>Asignado a</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item_id, item in items.items %}
+                        {% if item.assignment == email %}
+                            <tr>
+                                <td>{{ item_id }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.hours }}</td>
+                                <td>{{ item.assignment }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Por favor, selecciona un tablero para ver los detalles de los ítems.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
