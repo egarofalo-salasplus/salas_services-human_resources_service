@@ -30,7 +30,7 @@ stages:
           
           - script: |
               . venv/bin/activate
-              pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml tests/
+              python manage.py test
             env:
               SESAME_API_KEY: $(SESAME_API_KEY)  # Variable secreta en Azure Pipelines
             displayName: 'Run tests with coverage'
