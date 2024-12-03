@@ -13,7 +13,6 @@ variables:
 
 stages:
     - stage: DockerBuildAndPush
-    dependsOn: BuildAndTest
     jobs:
       - job: BuildDocker
         displayName: 'Build and Push Docker Image with Script'
