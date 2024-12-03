@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d_6cvw4z)jzcemqe_q*!b%v&l8+r7z5fi$au#3pgg)+0%$2-n9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'human-resources-ms.azurewebsites.net',
@@ -169,4 +169,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://127.0.0.1:9999",  # Agrega el origen del frontend
     "http://localhost:9999",  # Alternativa para localhost
+    "https://api-integration-ms.azurewebsites.net",
 ]

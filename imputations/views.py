@@ -8,7 +8,7 @@ import logging
 # Configurar el logger
 logger = logging.getLogger(__name__)
 
-monday_base_url = "http://127.0.0.1:8000/monday"
+monday_base_url = "https://api-integration-ms.azurewebsites.net//monday"
 salas_key = config("SALAS_API_KEY", default=os.getenv("SALAS_API_KEY"))
 headers = {
             "Content-Type": "application/json",
