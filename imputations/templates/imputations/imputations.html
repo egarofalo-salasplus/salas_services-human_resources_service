@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Imputationes{% endblock %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    <div class="container-fluid d-flex flex-column min-vh-100">
+        <div class="row flex-grow-1">
+            <nav class="col-lg-3 col-md-4 col-sm-12 d-none d-md-block bg-dark sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column mt-4">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="mb-2 text-light" for="board">Tablero de monday.com</label>
+                                {{ form.board|add_class:"form-control" }}  <!-- Asegúrate de reemplazar "field_name" con el nombre real del campo -->
+                            </div>
+                            <div class="form-group">
+                                <label class="mt-2 mb-2 text-light" for="id_field_email">Email a imputar</label>
+                                {{ form.email|add_class:"form-control" }}  <!-- Reemplaza "email" con el nombre real del campo -->
+                            </div>
+                            <!-- Agrega más campos según sea necesario -->
+                            <button type="submit" class="btn btn-secondary w-100 mt-4">Buscar tareas</button>
+                        </form>
+                    </ul>
+                </div>
+            </nav>
+            <main class="col-lg-9 col-md-8 col-sm-12">
+                <div class="container text-start">
+                    <h1>Imputaciones</h1>
+                    {% if items %}
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Imputado</th>
+                                    <th>Responsable</th>
+                                    <th>A imputar</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item_id, item in items.items %}
+                                    {% if item.assignment == email %}
+                                        <tr>
+                                            <td>{{ item.name }}</td>
+                                            <td id="previous_value">{{ item.hours }}</td>
+                                            <td>{{ item.assignment }}</td>
+                                            <td>
+                                                <input type="number" class="form-control" id="input-{{ item_id }}" placeholder="Horas">
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-dark btn-sm w-100 h-100"
+                                                onclick="sendImputation('{{board_id}}', '{{ item_id }}', 'n_meros8__1', document.getElementById('previous_value').value, document.getElementById('input-{{ item_id }}').value)">
+                                                    Enviar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p><strong>Por favor, selecciona un tablero para ver los detalles de los ítems.</strong></p>
+                    {% endif %}
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <!-- Cargamos valores de variables provenientes del contextot
+         en el objeto global window. De esta manera el valor será 
+         accesible por archivo de JavaScript -->
+    <script>
+        window.mondayBaseUrl = "{{ monday_base_url }}";
+        window.salasApiKey = "{{ salas_api_key }}";
+    </script>
+    <script src="{% static '/js/send_hours.js' %}"></script>
+{% endblock %}

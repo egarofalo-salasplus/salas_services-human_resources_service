@@ -17,9 +17,13 @@ headers = {
 
 
 def get_boards():
-    response = requests.get(f"{monday_base_url}/boards",
-                            headers=headers,
-                            timeout=5000)
+    try:
+        response = requests.get(f"{monday_base_url}/boards",
+                                headers=headers,
+                                timeout=5000)
+    except Exception as e:
+        print(f"Error: {e}")
+        return {}
     if response.status_code == 200:
         return response.json()
     else:
@@ -54,12 +58,19 @@ def get_items_details(item_ids):
         return {}
 
 
-def boards_view(request):
+def imputations_view(request):
     form = ImputationForm()
     boards = get_boards()
 
     # Actualizar las opciones del formulario con los datos obtenidos
     form.fields["board"].choices = [(v, k) for k, v in boards.items()]
+
+    # Definir contexto para la vista
+    context = {
+        "form": form,
+        "monday_base_url": monday_base_url,
+        'salas_api_key': os.getenv('SALAS_API_KEY')
+    }
 
     if request.method == "POST":
         form = ImputationForm(request.POST)
@@ -67,12 +78,15 @@ def boards_view(request):
         if form.is_valid():
             board_id = form.cleaned_data["board"]
             email = form.cleaned_data["email"]
-            logger.info(f"Board ID: {board_id}")
+            logger.info("Board ID: %s", board_id)
             items = get_items(board_id)
             item_details = get_items_details(items)
-            return render(
-                request,
-                "imputations/boards_view.html",
-                {"form": form, "items": item_details, "email": email})
+            # Actualizar el contexto
+            context.update({
+                "form": form,
+                "board_id": board_id,
+                "items": item_details,
+                "email": email
+            })
 
-    return render(request, "imputations/boards_view.html", {"form": form})
+    return render(request, "imputations/imputations.html", context)

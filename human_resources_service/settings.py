@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     'human-resources-ms.azurewebsites.net',
     '127.0.0.1',
     'localhost',
+    "192.168.101.197",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -42,7 +43,10 @@ CSRF_TRUSTED_ORIGINS = [
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Application definition
 
@@ -64,9 +68,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'imputations',
     'widget_tweaks',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -157,3 +163,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Default site
 
 SITE_ID = 1
+
+# Origenes crusados
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:9999",  # Agrega el origen del frontend
+    "http://localhost:9999",  # Alternativa para localhost
+]
