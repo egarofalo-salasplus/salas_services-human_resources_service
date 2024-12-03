@@ -18,22 +18,29 @@ stages:
         displayName: 'Clone Repository and Install Dependencies, Lint and Test'
         pool:
           vmImage: 'ubuntu-latest'
-        container: python:3.12-slim-bullseye
         steps:
           - checkout: self
-          - script: |
-              python -m venv venv
-              . venv/bin/activate
-              pip install -r requirements.txt
-              pip install flake8 pytest pytest-cov pytest-azurepipelines
-            displayName: 'Install dependencies'
-          
-          - script: |
-              . venv/bin/activate
+
+          # Construir la imagen de Docker
+        - script: |
+            docker login $(CONTAINER_REG).azurecr.io -u $ACR_USERNAME -p $ACR_PASSWORD
+            docker build -t $(CONTAINER_REG).azurecr.io/$(APP_NAME):$(BUILD_ID) .
+          env:
+            ACR_USERNAME: $(ACR_USERNAME)
+            ACR_PASSWORD: $(ACR_PASSWORD)
+          displayName: 'Build Docker Image'
+
+        # Ejecutar pruebas de Django dentro del contenedor
+        - script: |
+            docker run --rm \
+              -e DB_NAME=$(DB_NAME) \
+              -e DB_USER=$(DB_USER) \
+              -e DB_PASSWORD=$(DB_PASSWORD) \
+              -e DB_HOST=$(DB_HOST) \
+              -e DB_PORT=$(DB_PORT) \
+              $(CONTAINER_REG).azurecr.io/$(APP_NAME):$(BUILD_ID) \
               python manage.py test
-            env:
-              SESAME_API_KEY: $(SESAME_API_KEY)  # Variable secreta en Azure Pipelines
-            displayName: 'Run tests with coverage'
+          displayName: 'Run Django Tests in Docker Container'
           
           - task: PublishCodeCoverageResults@2
             inputs:
