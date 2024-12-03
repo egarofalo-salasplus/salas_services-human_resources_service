@@ -100,3 +100,4 @@ stages:
               APP_NAME: $(APP_NAME)
               BUILD_ID: $(BUILD_ID)
             displayName: 'Deploy to Azure Web App using Azure CLI Docker Container'
+            
