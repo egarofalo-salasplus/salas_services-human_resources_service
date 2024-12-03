@@ -21,12 +21,6 @@ stages:
         container: python:3.12-slim-bullseye
         steps:
           - checkout: self
-
-          - script: |
-              sudo apt-get update
-              sudo apt-get install -y unixodbc unixodbc-dev
-            displayName: Install ODBC dependencies
-
           - script: |
               python -m venv venv
               . venv/bin/activate
