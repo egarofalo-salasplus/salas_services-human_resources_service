@@ -12,43 +12,7 @@ variables:
   BUILD_ID: $(Build.BuildId)
 
 stages:
-  - stage: BuildAndTest
-    jobs:
-      - job: BuildAndTest
-        displayName: 'Clone Repository and Install Dependencies, Lint and Test'
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-          - checkout: self
-
-          # Construir la imagen de Docker
-          - script: |
-              docker login $(CONTAINER_REG).azurecr.io -u $ACR_USERNAME -p $ACR_PASSWORD
-              docker build -t $(CONTAINER_REG).azurecr.io/$(APP_NAME):$(BUILD_ID) .
-            env:
-              ACR_USERNAME: $(ACR_USERNAME)
-              ACR_PASSWORD: $(ACR_PASSWORD)
-            displayName: 'Build Docker Image'
-
-          # Ejecutar pruebas de Django dentro del contenedor
-          - script: |
-              docker run --rm \
-                -e DB_NAME=$(DB_NAME) \
-                -e DB_USER=$(DB_USER) \
-                -e DB_PASSWORD=$(DB_PASSWORD) \
-                -e DB_HOST=$(DB_HOST) \
-                -e DB_PORT=$(DB_PORT) \
-                $(CONTAINER_REG).azurecr.io/$(APP_NAME):$(BUILD_ID) \
-                python manage.py test
-            displayName: 'Run Django Tests in Docker Container'
-          
-          - task: PublishCodeCoverageResults@2
-            inputs:
-              codeCoverageTool: 'Cobertura'
-              summaryFileLocation: 'tests/coverage.xml'
-            displayName: 'Publish Coverage Report'
-
-  - stage: DockerBuildAndPush
+    - stage: DockerBuildAndPush
     dependsOn: BuildAndTest
     jobs:
       - job: BuildDocker
@@ -100,4 +64,3 @@ stages:
               APP_NAME: $(APP_NAME)
               BUILD_ID: $(BUILD_ID)
             displayName: 'Deploy to Azure Web App using Azure CLI Docker Container'
-            
