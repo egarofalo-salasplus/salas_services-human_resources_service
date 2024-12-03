@@ -18,9 +18,15 @@ stages:
         displayName: 'Clone Repository and Install Dependencies, Lint and Test'
         pool:
           vmImage: 'ubuntu-latest'
-        container: python:3.12.5-slim
+        container: python:3.12-slim-bullseye
         steps:
           - checkout: self
+
+          - script: |
+              sudo apt-get update
+              sudo apt-get install -y unixodbc unixodbc-dev
+            displayName: Install ODBC dependencies
+
           - script: |
               python -m venv venv
               . venv/bin/activate
