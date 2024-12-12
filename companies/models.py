@@ -16,7 +16,7 @@ class Empresa(models.Model):
         return self.nombre
 
     class Meta:
-        db_table = 'Dim_Empresa'
+        db_table = "Dim_Empresa"
 
 
 class Direccion(models.Model):
@@ -32,7 +32,7 @@ class Direccion(models.Model):
         return f"{self.calle}, {self.complemento}, {self.ciudad}, {self.pais}"
 
     class Meta:
-        db_table = 'Dim_Direccion'
+        db_table = "Dim_Direccion"
 
 # Registrar modelos para se editables en admin
 admin.site.register(Empresa)

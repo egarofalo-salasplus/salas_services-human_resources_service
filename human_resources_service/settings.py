@@ -117,7 +117,7 @@ DATABASES = {
         'USER': config("DB_USER", default=os.getenv("DB_USER")),
         'PASSWORD': config("DB_PASSWORD", default=os.getenv("DB_PASSWORD")),
         'HOST': config("DB_HOST", default=os.getenv("DB_HOST")),
-        'PORT': "",
+        'PORT': config("DB_PORT", default=os.getenv("DB_PORT")),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
             'extra_params': 'TrustServerCertificate=yes;'

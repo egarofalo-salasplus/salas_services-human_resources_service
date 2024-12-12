@@ -11,4 +11,4 @@ class Departamento(models.Model):
         return self.nombre
 
     class Meta:
-        db_table = 'Dim_Departamento'
+        db_table = "Dim_Departamento"

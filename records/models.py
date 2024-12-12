@@ -1,5 +1,5 @@
 from django.db import models
-from employees.models import Empleado
+from employees.models import Empleado, PuestoTrabajo
 from companies.models import Empresa
 from departments.models import Departamento
 from django.contrib import admin
@@ -17,7 +17,7 @@ class Fichaje(models.Model):
         return f"{self.fecha}: {self.empleado} - Trabajado {self.tiempo_trabajado}"
 
     class Meta:
-        db_table = 'Fact_Fichajes'
+        db_table = "Fact_Fichajes"
 
 class Imputacion(models.Model):
     imputacion_id = models.AutoField(primary_key=True, db_column='imputacion_id')
@@ -36,7 +36,19 @@ class Imputacion(models.Model):
         return f"{self.fecha}: {self.empleado} - Tarea: {self.tarea}"
 
     class Meta:
-        db_table = 'Fact_Imputaciones'
+        db_table = "Fact_Imputaciones"
+
+class Alta(models.Model):
+    alta_id = models.AutoField(primary_key=True, db_column="alta_id")
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, db_column='empleado_id')
+    fecha_alta = models.DateField(db_column='fecha_alta')
+    puesto_trabajo = models.ForeignKey(PuestoTrabajo, on_delete=models.CASCADE, db_column="puesto_trabajo_id")
+    
+    def __str__(self):
+        return f"Fecha de alta: {self.fecha_alta} - (ID Empleado: {self.empleado})"
+
+    class Meta:
+        db_table = "Fact_Altas"
 
 class Baja(models.Model):
     baja_id = models.AutoField(primary_key=True, db_column='baja_id')
@@ -48,7 +60,7 @@ class Baja(models.Model):
         return f"{self.fecha_baja} - {self.motivo_baja} ({self.empleado})"
 
     class Meta:
-        db_table = 'Fact_Bajas'
+        db_table = "Fact_Bajas"
 
 class Evaluacion(models.Model):
     evaluation_id = models.AutoField(primary_key=True, db_column='evaluacion_id')
@@ -61,8 +73,9 @@ class Evaluacion(models.Model):
         return f"{self.fecha_evaluacion}: {self.empleado} - Calificación: {self.puntaje}"
 
     class Meta:
-        db_table = 'Fact_Evaluaciones'
+        db_table = "Fact_Evaluaciones"
 
 admin.site.register(Imputacion)
+admin.site.register(Alta)
 admin.site.register(Baja)
 admin.site.register(Evaluacion)
